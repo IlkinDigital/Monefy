@@ -4,65 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Monefy.View"
+        xmlns:local="clr-namespace:Monefy.View" 
+        xmlns:viewmodel="clr-namespace:Monefy.ViewModel" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        d:DataContext="{d:DesignInstance Type=viewmodel:MonefyViewModel}"
         mc:Ignorable="d"
-        Title="MonefyView" Height="720" Width="1200"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+        Title="MonefyView" Height="720" Width="560" WindowStyle="SingleBorderWindow">
     <Grid>
-        <materialDesign:DialogHost>
-            <materialDesign:DialogHost.DialogContent>
-                <StackPanel Margin="16">
-                    <TextBlock Text="Add a new fruit." />
-                    
-                    <TextBox Margin="0 8 0 0"
-                             HorizontalAlignment="Stretch"
-                             x:Name="FruitTextBox" />
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Right">
-                        <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                IsDefault="True"
-                                Margin="0 8 8 0"
-                                Content="Add"
-                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                        </Button>
-                        <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                IsCancel="True"
-                                Margin="0 8 8 0"
-                                Content="Cancel"
-                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-            </materialDesign:DialogHost.DialogContent>
-            <Border BorderThickness="1"
-                    BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                    MinHeight="256"
-                    ClipToBounds="True">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <ListBox x:Name="FruitListBox">
-                        <ListBoxItem Content="Apple" />
-                        <ListBoxItem Content="Banana" />
-                        <ListBoxItem Content="Pear" />
-                    </ListBox>
-                    <materialDesign:ColorZone Mode="PrimaryMid"
-                                              Grid.Row="1"
-                                              Effect="{DynamicResource MaterialDesignShadowDepth5}">
-                        <TextBlock Margin="16"
-                                   Text="Fruit Bowl" />
-                    </materialDesign:ColorZone>
-                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                            Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Right"
-                            Grid.Row="0"
-                            Margin="0 0 28 -20"
-                            Content="{materialDesign:PackIcon Kind=Plus, Size=22}" />
-                </Grid>
-            </Border>
-        </materialDesign:DialogHost>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.12*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Background="LightGreen">
+            <TextBlock Text="Monefy"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="40"
+                       FontWeight="SemiBold"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            
+            <ContentControl Grid.Row="1"
+                            Content="{Binding CurrentViewModel}" />
+        </Grid>
     </Grid>
 </Window>
