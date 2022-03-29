@@ -44,7 +44,7 @@ namespace Monefy.ViewModel
         }); }
 
         private RelayCommand _statsNavCommand;
-        public RelayCommand StatsNavCommand { get => _generalNavCommand ??= new RelayCommand(() =>
+        public RelayCommand StatsNavCommand { get => _statsNavCommand ??= new RelayCommand(() =>
         {
             NavigationService.NavigateTo<StatsViewModel>();
         }); }

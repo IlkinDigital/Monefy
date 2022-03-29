@@ -10,18 +10,29 @@
         d:DataContext="{d:DesignInstance Type=viewmodel:MonefyViewModel}"
         mc:Ignorable="d"
         Title="MonefyView" Height="720" Width="560" WindowStyle="SingleBorderWindow">
-    <Grid>
+
+    <Window.Resources>
+        <Style x:Key="NavigationButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#43B062" />
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid Background="#ffff">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.12*"/>
+            <RowDefinition Height="0.1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <Grid Background="LightGreen">
+        <Grid Background="#43B062">
             <TextBlock Text="Monefy"
                        Foreground="White"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="40"
+                       FontSize="30"
                        FontWeight="SemiBold"/>
         </Grid>
 
@@ -30,6 +41,33 @@
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="1"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Foreground="#43B062"
+                        HorizontalAlignment="Center"
+                        FontWeight="Bold"
+                        Command="{Binding GeneralNavCommand}">
+                    Home
+                </Button>
+
+                <Button Grid.Column="2"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Foreground="#43B062"
+                        HorizontalAlignment="Center"
+                        FontWeight="Bold"
+                        Command="{Binding StatsNavCommand}">
+                    Stats
+                </Button>
+            </Grid>
             
             <ContentControl Grid.Row="1"
                             Content="{Binding CurrentViewModel}" />
