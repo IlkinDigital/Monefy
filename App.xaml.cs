@@ -36,7 +36,7 @@ namespace Monefy
 
             Container.RegisterSingleton<INavigationService, NavigationService>();
             Container.RegisterSingleton<IMessenger, Messenger>();
-            Container.RegisterSingleton<IUserDataManagerService, UserDataManagerService>();
+            Container.RegisterSingleton<IUserDataService, UserDataService>();
 
             Container.RegisterSingleton<MonefyViewModel>();
             Container.RegisterSingleton<GeneralViewModel>();

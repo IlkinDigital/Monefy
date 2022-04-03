@@ -7,18 +7,22 @@ using System.Threading.Tasks;
 
 namespace Monefy.Services
 {
-    public class UserDataManagerService : IUserDataManagerService
+    public class UserDataService : IUserDataService
     {
+        private string _filepath = "UserData.json";
+        public string Filepath { get => _filepath; set => _filepath = value; }
+
         public void Update(UserData userData)
         {
             throw new NotImplementedException();
         }
 
-        public string? FetchJson(string filepath)
+        public UserData? FetchData()
         {
             throw new NotImplementedException();
         }
-        public UserData? FetchData(string filepath)
+
+        public string? FetchJson()
         {
             throw new NotImplementedException();
         }

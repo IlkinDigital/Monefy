@@ -10,11 +10,11 @@ namespace Monefy.ViewModel
 {
     public class StatsViewModel : ViewModelBase
     {
-        private readonly IUserDataManagerService UserDataManager;
+        private readonly IUserDataService UserDataService;
 
-        public StatsViewModel(IUserDataManagerService userDataManager)
+        public StatsViewModel(IUserDataService userDataService)
         {
-            UserDataManager = userDataManager;
+            UserDataService = userDataService;
         }
     }
 }

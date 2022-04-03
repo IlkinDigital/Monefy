@@ -20,11 +20,17 @@
                 <!--Expenses Dialog-->
                 <ResourceDictionary>
                     <DataTemplate DataType="{x:Type Components:AddExpenseMenu}">
-                        <StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     materialDesign:HintAssist.Hint="Amount paid"
+                                     Margin="5"
+                                     TextWrapping="Wrap"
+                                     Text="{Binding Amount}"/>
                             <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                       materialDesign:HintAssist.Hint="Category"
-                                      ItemsSource="{Binding }"
+                                      ItemsSource="{Binding Categories}"
                                       materialDesign:TextFieldAssist.HasClearButton="True"
+                                      Margin="5"
                                       Width="256">
                                 <ComboBox.SelectedItem>
                                     <Binding Path="SelectedValidationOutlined"

@@ -14,25 +14,11 @@ namespace Monefy.ViewModel
 {
     public class GeneralViewModel : ViewModelBase
     {
-        private readonly IUserDataManagerService UserDataManager;
+        private readonly IUserDataService UserDataService;
 
-        public GeneralViewModel(IUserDataManagerService userDataManager)
+        public GeneralViewModel(IUserDataService userDataService)
         {
-            UserDataManager = userDataManager;
-
-            Categories = new()
-            {
-                "Applience",
-                "Food",
-                "Transportaition"
-            };
-        }
-
-        private List<string> _categories;
-        public List<string> Categories
-        {
-            get => _categories;
-            set => Set(ref _categories, value);
+            UserDataService = userDataService;
         }
 
         public float Balance { get; set; } = 0.0f;
@@ -42,7 +28,7 @@ namespace Monefy.ViewModel
         {
             get => _openIncomeDialogCommand ??= new RelayCommand(async () =>
             {
-                await DialogHost.Show(new AddIncomeMenu(), "RootDialog");
+                await DialogHost.Show(new AddIncomeMenu(UserDataService), "RootDialog");
             });
         }
 
@@ -51,7 +37,7 @@ namespace Monefy.ViewModel
         {
             get => _openExpenseDialogCommand ??= new RelayCommand(async () =>
             {
-                await DialogHost.Show(new AddExpenseMenu(), "RootDialog");
+                await DialogHost.Show(new AddExpenseMenu(UserDataService), "RootDialog");
             });
         }
     }

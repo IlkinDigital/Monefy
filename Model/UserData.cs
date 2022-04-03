@@ -10,5 +10,6 @@ namespace Monefy.Model
     {
         public float Balance { get; set; }
         public PurchaseRecord<float>[]? PurchaseHistory { get; set; }
+        public CategoryModel[]? Categories { get; set; }
     }
 }

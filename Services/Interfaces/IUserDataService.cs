@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Monefy.Services
 {
-    public interface IUserDataManagerService
+    public interface IUserDataService
     {
+        public string Filepath { get; set; }
+
         public void Update(UserData userData);
 
-        public UserData? FetchData(string filepath);
-        public string? FetchJson(string filepath);
+        public UserData? FetchData();
+        public string? FetchJson();
     }
 }
