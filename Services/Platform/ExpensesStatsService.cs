@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monefy.Services.ExpensesStats
+namespace Monefy.Services
 {
     public class ExpensesStatsService : IExpensesStatsService
     {
-        public PurchaseCategory<int>[] CalculatePercentageFromTotal(PurchaseCategory<float>[] purchaseExpenses)
+        public PurchaseRecord<int>[] CalculatePercentageFromTotal(PurchaseRecord<float>[] purchaseExpenses)
         {
             float total = 0.0f;
             foreach (var item in purchaseExpenses)
@@ -17,10 +17,10 @@ namespace Monefy.Services.ExpensesStats
                 total += item.Value;
             }
 
-            PurchaseCategory<int>[] result = new PurchaseCategory<int>[purchaseExpenses.Length];
+            PurchaseRecord<int>[] result = new PurchaseRecord<int>[purchaseExpenses.Length];
             for (int i = 0; i < purchaseExpenses.Length; i++)
             {
-                result[i].Name = purchaseExpenses[i].Name;
+                result[i].Category = purchaseExpenses[i].Category;
                 result[i].Value = (int)Math.Ceiling(Percentage(purchaseExpenses[i].Value, total));
             }
 

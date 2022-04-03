@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monefy.Services.ExpensesStats
+namespace Monefy.Services
 {
     public interface IExpensesStatsService
     {
-        PurchaseCategory<int>[] CalculatePercentageFromTotal(PurchaseCategory<float>[] purchaseExpenses);
+        PurchaseRecord<int>[] CalculatePercentageFromTotal(PurchaseRecord<float>[] purchaseExpenses);
     }
 }

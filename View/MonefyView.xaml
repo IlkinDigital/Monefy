@@ -9,7 +9,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         d:DataContext="{d:DesignInstance Type=viewmodel:MonefyViewModel}"
         mc:Ignorable="d"
-        Title="MonefyView" Height="720" Width="560" WindowStyle="SingleBorderWindow">
+        Title="MonefyView" Height="720" Width="500" WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
         <Style x:Key="NavigationButtonStyle" TargetType="Button">

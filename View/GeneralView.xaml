@@ -4,65 +4,98 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monefy.View"
+             xmlns:Components="clr-namespace:Monefy.ViewModel.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+             d:DesignHeight="720" d:DesignWidth="500"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:viewmodel="clr-namespace:Monefy.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=viewmodel:GeneralViewModel}">
 
-    <Grid>
-        <materialDesign:DialogHost>
-            <materialDesign:DialogHost.DialogContent>
-                <StackPanel Margin="16">
-                    <TextBlock Text="Add a new fruit." />
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
+                
+                <!--Expenses Dialog-->
+                <ResourceDictionary>
+                    <DataTemplate DataType="{x:Type Components:AddExpenseMenu}">
+                        <StackPanel>
+                            <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                      materialDesign:HintAssist.Hint="Category"
+                                      ItemsSource="{Binding }"
+                                      materialDesign:TextFieldAssist.HasClearButton="True"
+                                      Width="256">
+                                <ComboBox.SelectedItem>
+                                    <Binding Path="SelectedValidationOutlined"
+                                             Mode="TwoWay"
+                                             UpdateSourceTrigger="PropertyChanged">
+                                    </Binding>
+                                </ComboBox.SelectedItem>
+                            </ComboBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ResourceDictionary>
+                
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
-                    <TextBox Margin="0 8 0 0"
-                             HorizontalAlignment="Stretch"
-                             x:Name="FruitTextBox" />
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Right">
-                        <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                IsDefault="True"
-                                Margin="0 8 8 0"
-                                Content="Add"
-                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                        </Button>
-                        <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                IsCancel="True"
-                                Margin="0 8 8 0"
-                                Content="Cancel"
-                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-            </materialDesign:DialogHost.DialogContent>
-            <Border BorderThickness="1"
-                    BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                    MinHeight="256"
-                    ClipToBounds="True">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <ListBox x:Name="FruitListBox">
-                        <ListBoxItem Content="Apple" />
-                        <ListBoxItem Content="Banana" />
-                        <ListBoxItem Content="Pear" />
-                    </ListBox>
-                    <materialDesign:ColorZone Mode="PrimaryMid"
-                                              Grid.Row="1"
-                                              Effect="{DynamicResource MaterialDesignShadowDepth5}">
-                        <TextBlock Margin="16"
-                                   Text="Fruit Bowl" />
-                    </materialDesign:ColorZone>
-                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                            Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Right"
-                            Grid.Row="0"
-                            Margin="0 0 28 -20"
-                            Content="{materialDesign:PackIcon Kind=Plus, Size=22}" />
-                </Grid>
-            </Border>
-        </materialDesign:DialogHost>
-    </Grid>
+    <!--Root Dialog Scope-->
+    <materialDesign:DialogHost Identifier="RootDialog"
+                                CloseOnClickAway="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2.5*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.6*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            
+            <!--Expenses Button-->
+            <Button Grid.Row="2" Grid.Column="0"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                    Command="{Binding OpenExpenseDialogCommand}"
+                    Width="60"
+                    Height="60"
+                    Background="Red"
+                    Foreground="White"
+                    BorderBrush="{x:Null}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Content="{materialDesign:PackIcon Kind=Minus, Size=35}" />     
+            
+            <!--Income Button-->
+            <Button Grid.Row="2" Grid.Column="1"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                    Command="{Binding OpenIncomeDialogCommand}"
+                    Width="60"
+                    Height="60"
+                    Background="#43B062"
+                    Foreground="White"
+                    BorderBrush="{x:Null}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Content="{materialDesign:PackIcon Kind=Plus, Size=35}" />
+
+            <materialDesign:Card Grid.Row="1" Grid.ColumnSpan="2"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 Background="#43B062"
+                                 Foreground="White"
+                                 Padding="6">
+                <TextBlock FontSize="22"
+                           FontWeight="Regular">
+                    <Run Text="Balance $" />
+                    <Run Text="{Binding Balance}" />
+                </TextBlock>
+            </materialDesign:Card>
+
+        </Grid>
+            
+    </materialDesign:DialogHost>
 </UserControl>

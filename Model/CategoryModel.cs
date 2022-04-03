@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Monefy.Model
 {
-    public class UserData
+    public class CategoryModel
     {
-        public float Balance { get; set; }
-        public PurchaseRecord<float>[]? PurchaseHistory { get; set; }
+        public string Name { get; set; }
+        public string IconPath { get; set; }
     }
 }

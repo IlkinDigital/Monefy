@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monefy.Services.Navigation
+namespace Monefy.Services
 {
     public class NavigationService : INavigationService
     {

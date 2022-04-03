@@ -2,9 +2,10 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Monefy.Messages;
-using Monefy.Services.Navigation;
+using Monefy.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace Monefy.ViewModel
 {
     public class MonefyViewModel : ViewModelBase
     {
+        public static ObservableCollection<string> Categories { get; set; } = new();
+
         private readonly IMessenger Messenger;
         private readonly INavigationService NavigationService;
 
@@ -37,16 +40,22 @@ namespace Monefy.ViewModel
             set => Set(ref _currentViewModel, value);
         }
 
-        private RelayCommand _generalNavCommand;
-        public RelayCommand GeneralNavCommand { get => _generalNavCommand ??= new RelayCommand(() =>
-        {
-            NavigationService.NavigateTo<GeneralViewModel>();
-        }); }
+        private RelayCommand? _generalNavCommand;
+        public RelayCommand GeneralNavCommand 
+        { 
+            get => _generalNavCommand ??= new RelayCommand(() =>
+            {
+                NavigationService.NavigateTo<GeneralViewModel>();
+            }); 
+        }
 
-        private RelayCommand _statsNavCommand;
-        public RelayCommand StatsNavCommand { get => _statsNavCommand ??= new RelayCommand(() =>
-        {
-            NavigationService.NavigateTo<StatsViewModel>();
-        }); }
+        private RelayCommand? _statsNavCommand;
+        public RelayCommand StatsNavCommand 
+        { 
+            get => _statsNavCommand ??= new RelayCommand(() =>
+            {
+                NavigationService.NavigateTo<StatsViewModel>();
+            }); 
+        }
     }
 }

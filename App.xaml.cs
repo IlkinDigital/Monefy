@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using Monefy.Services.Navigation;
+using Monefy.Services;
 using Monefy.View;
 using Monefy.ViewModel;
 using SimpleInjector;
@@ -36,6 +36,7 @@ namespace Monefy
 
             Container.RegisterSingleton<INavigationService, NavigationService>();
             Container.RegisterSingleton<IMessenger, Messenger>();
+            Container.RegisterSingleton<IUserDataManagerService, UserDataManagerService>();
 
             Container.RegisterSingleton<MonefyViewModel>();
             Container.RegisterSingleton<GeneralViewModel>();
