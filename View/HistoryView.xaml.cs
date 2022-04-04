@@ -18,9 +18,9 @@ namespace Monefy.View
     /// <summary>
     /// Interaction logic for StatsView.xaml
     /// </summary>
-    public partial class StatsView : UserControl
+    public partial class HistoryView : UserControl
     {
-        public StatsView()
+        public HistoryView()
         {
             InitializeComponent();
         }

@@ -11,38 +11,144 @@
              xmlns:viewmodel="clr-namespace:Monefy.ViewModel" 
              d:DataContext="{d:DesignInstance Type=viewmodel:GeneralViewModel}">
 
-    <UserControl.Resources>
+    <UserControl.Resources> 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
+
+                <ResourceDictionary>
+                    <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="15" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                        <Setter Property="Foreground" Value="#43B062" />
+                        <Setter Property="Background" Value="{x:Null}" />
+                    </Style>
+                </ResourceDictionary>
                 
                 <!--Expenses Dialog-->
                 <ResourceDictionary>
                     <DataTemplate DataType="{x:Type Components:AddExpenseMenu}">
-                        <StackPanel Margin="5">
+                        <StackPanel Margin="10">
+                            <TextBlock Style="{StaticResource TextBlockStyle}"  
+                                       HorizontalAlignment="Center"
+                                       Margin="10" 
+                                       Text="New Expense"/>
                             <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                      materialDesign:HintAssist.Hint="Amount paid"
-                                     Margin="5"
+                                     Margin="10"
+                                     BorderBrush="#43B062"
                                      TextWrapping="Wrap"
                                      Text="{Binding Amount}"/>
                             <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                       materialDesign:HintAssist.Hint="Category"
                                       ItemsSource="{Binding Categories}"
                                       materialDesign:TextFieldAssist.HasClearButton="True"
-                                      Margin="5"
-                                      Width="256">
+                                      Margin="10"
+                                      BorderBrush="#43B062">
                                 <ComboBox.SelectedItem>
-                                    <Binding Path="SelectedValidationOutlined"
+                                    <Binding Path="SelectedCategory"
                                              Mode="TwoWay"
                                              UpdateSourceTrigger="PropertyChanged">
                                     </Binding>
                                 </ComboBox.SelectedItem>
                             </ComboBox>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                
+                                <Button Grid.Column="0"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        IsDefault="True"
+                                        FontSize="15"
+                                        FontWeight="SemiBold"
+                                        Foreground="#43B062"
+                                        Margin="10"
+                                        Content="Add"
+                                        Command="{Binding AddExpenseCommand}">
+                                    <Button.CommandParameter>
+                                        <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                            True
+                                        </system:Boolean>
+                                    </Button.CommandParameter>
+                                </Button>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        IsCancel="True"
+                                        FontSize="15"
+                                        FontWeight="SemiBold"
+                                        Foreground="#43B062"
+                                        Margin="10"
+                                        Content="Cancel"
+                                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                                    <Button.CommandParameter>
+                                        <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                            False
+                                        </system:Boolean>
+                                    </Button.CommandParameter>
+                                </Button>
+                            </Grid>
                         </StackPanel>
                     </DataTemplate>
                 </ResourceDictionary>
                 
+                <!--Income Dialog-->
+                <ResourceDictionary>
+                    <DataTemplate DataType="{x:Type Components:AddIncomeMenu}">
+                        <StackPanel Margin="10">
+                            <TextBlock Style="{StaticResource TextBlockStyle}"  
+                                       HorizontalAlignment="Center"
+                                       Margin="10" 
+                                       Text="New Income"/>
+                            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     materialDesign:HintAssist.Hint="Amount paid"
+                                     Margin="10"
+                                     BorderBrush="#43B062"
+                                     TextWrapping="Wrap"
+                                     Text="{Binding Amount}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        IsDefault="True"
+                                        FontSize="15"
+                                        FontWeight="SemiBold"
+                                        Foreground="#43B062"
+                                        Margin="10"
+                                        Content="Add"
+                                        Command="{Binding AddIncomeCommand}">
+                                    <Button.CommandParameter>
+                                        <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                            True
+                                        </system:Boolean>
+                                    </Button.CommandParameter>
+                                </Button>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        IsCancel="True"
+                                        FontSize="15"
+                                        FontWeight="SemiBold"
+                                        Foreground="#43B062"
+                                        Margin="10"
+                                        Content="Cancel"
+                                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                                    <Button.CommandParameter>
+                                        <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                            False
+                                        </system:Boolean>
+                                    </Button.CommandParameter>
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                </ResourceDictionary>
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

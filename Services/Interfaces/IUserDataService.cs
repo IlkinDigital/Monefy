@@ -11,9 +11,9 @@ namespace Monefy.Services
     {
         public string Filepath { get; set; }
 
-        public void Update(UserData userData);
+        public UserData? Data { get; set; }
 
-        public UserData? FetchData();
-        public string? FetchJson();
+        public void YieldBalance(float amount);
+        public void RecordPurchase(PurchaseRecord<float> purchaseRecord);
     }
 }

@@ -8,7 +8,7 @@ namespace Monefy.Model
 {
     public class PurchaseRecord<Ty>
     { 
-        public CategoryModel Category { get; set; }
+        public CategoryModel? Category { get; set; }
         public Ty Value { get; set; }
     }
 }

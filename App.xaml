@@ -20,8 +20,8 @@
             <DataTemplate DataType="{x:Type ViewModel:GeneralViewModel}">
                 <View:GeneralView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type ViewModel:StatsViewModel}">
-                <View:StatsView/>
+            <DataTemplate DataType="{x:Type ViewModel:HistoryViewModel}">
+                <View:HistoryView/>
             </DataTemplate>
 
         </ResourceDictionary>

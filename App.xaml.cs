@@ -40,7 +40,7 @@ namespace Monefy
 
             Container.RegisterSingleton<MonefyViewModel>();
             Container.RegisterSingleton<GeneralViewModel>();
-            Container.RegisterSingleton<StatsViewModel>();
+            Container.RegisterSingleton<HistoryViewModel>();
 
             Container.Verify();
         }

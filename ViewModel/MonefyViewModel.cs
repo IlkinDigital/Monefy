@@ -49,12 +49,12 @@ namespace Monefy.ViewModel
             }); 
         }
 
-        private RelayCommand? _statsNavCommand;
-        public RelayCommand StatsNavCommand 
+        private RelayCommand? _historyNavCommand;
+        public RelayCommand HistoryNavCommand 
         { 
-            get => _statsNavCommand ??= new RelayCommand(() =>
+            get => _historyNavCommand ??= new RelayCommand(() =>
             {
-                NavigationService.NavigateTo<StatsViewModel>();
+                NavigationService.NavigateTo<HistoryViewModel>();
             }); 
         }
     }
