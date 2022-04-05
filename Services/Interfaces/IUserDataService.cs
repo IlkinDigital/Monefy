@@ -14,6 +14,6 @@ namespace Monefy.Services
         public UserData? Data { get; set; }
 
         public void YieldBalance(float amount);
-        public void RecordPurchase(PurchaseRecord<float> purchaseRecord);
+        public void RecordPurchase(PurchaseRecord purchaseRecord);
     }
 }

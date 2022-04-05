@@ -1,4 +1,7 @@
-﻿using Monefy.Model;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using Monefy.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +12,39 @@ namespace Monefy.Services
 {
     public class ExpensesStatsService : IExpensesStatsService
     {
-        public PurchaseRecord<int>[] CalculatePercentageFromTotal(PurchaseRecord<float>[] purchaseExpenses)
+        public SeriesCollection ComputePieChartData(UserData userData)
         {
-            float total = 0.0f;
-            foreach (var item in purchaseExpenses)
+            SeriesCollection pieChartData = new();
+            Dictionary<string, float> categExpensesMap = new();
+
+            // For pie chart to have consistent markings
+            foreach (var category in userData.Categories)
             {
-                total += item.Value;
+                categExpensesMap.Add(category.Name, 0.0f);
             }
 
-            PurchaseRecord<int>[] result = new PurchaseRecord<int>[purchaseExpenses.Length];
-            for (int i = 0; i < purchaseExpenses.Length; i++)
+            if (userData.PurchaseHistory != null)
             {
-                result[i].Category = purchaseExpenses[i].Category;
-                result[i].Value = (int)Math.Ceiling(Percentage(purchaseExpenses[i].Value, total));
+                foreach (var record in userData.PurchaseHistory)
+                {
+                    if (record.CategoryType == ECategoryType.Expense)
+                    {
+                        categExpensesMap[record.Category.Name] += record.Value;
+                    }
+                }
             }
 
-            return result;
-        }
+            foreach (var item in categExpensesMap)
+            {
+                pieChartData.Add(new PieSeries
+                {
+                    Title = item.Key,
+                    Values = new ChartValues<ObservableValue> { new ObservableValue((double)Math.Round((Decimal)item.Value, 2, MidpointRounding.AwayFromZero)) },
+                    DataLabels = true
+                });
+            }
 
-        private float Percentage(float num, float total)
-        {
-            return num * 100.0f / total;
+            return pieChartData;
         }
     }
 }

@@ -37,7 +37,8 @@ namespace Monefy
             Container.RegisterSingleton<INavigationService, NavigationService>();
             Container.RegisterSingleton<IMessenger, Messenger>();
             Container.RegisterSingleton<IUserDataService, UserDataService>();
-
+            Container.RegisterSingleton<IExpensesStatsService, ExpensesStatsService>();
+            
             Container.RegisterSingleton<MonefyViewModel>();
             Container.RegisterSingleton<GeneralViewModel>();
             Container.RegisterSingleton<HistoryViewModel>();

@@ -32,6 +32,6 @@ namespace Monefy.ViewModel
                 PurchaseRecords = new(UserDataService.Data.PurchaseHistory);
         }
 
-        public ObservableCollection<PurchaseRecord<float>> PurchaseRecords { get; set; } = new();
+        public ObservableCollection<PurchaseRecord> PurchaseRecords { get; set; } = new();
     }
 }

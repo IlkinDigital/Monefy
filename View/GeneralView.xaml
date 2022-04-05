@@ -4,10 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monefy.View"
+             xmlns:model="clr-namespace:Monefy.Model"
              xmlns:Components="clr-namespace:Monefy.ViewModel.Components"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="500"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:viewmodel="clr-namespace:Monefy.ViewModel" 
              d:DataContext="{d:DesignInstance Type=viewmodel:GeneralViewModel}">
 
@@ -24,6 +26,21 @@
                         <Setter Property="Foreground" Value="#43B062" />
                         <Setter Property="Background" Value="{x:Null}" />
                     </Style>
+                </ResourceDictionary>
+
+                <!--Category-->
+                <ResourceDictionary>
+                    <DataTemplate DataType="{x:Type model:CategoryModel}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="{Binding IconPath}" />
+                            <TextBlock Style="{StaticResource TextBlockStyle}" 
+                                       Margin="10, 0, 0, 0"
+                                       Foreground="Black"
+                                       FontSize="12"
+                                       FontWeight="Medium"
+                                       Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
                 </ResourceDictionary>
                 
                 <!--Expenses Dialog-->
@@ -159,21 +176,32 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2.5*"/>
-                <RowDefinition Height="0.3*"/>
-                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.8*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+
+            <lvc:PieChart Grid.ColumnSpan="2" 
+                          LegendLocation="Bottom" Hoverable="True"  InnerRadius="50" Margin="22"
+                          Series="{Binding ExpensesStatsCollection}">
+                <lvc:PieChart.ChartLegend>
+                    <lvc:DefaultLegend Margin="0, 20, 0, 0"  BulletSize="15" TextBlock.FontSize="15" />
+                </lvc:PieChart.ChartLegend>
+                <lvc:PieChart.DataTooltip>
+                    <lvc:DefaultTooltip BulletSize="20" />
+                </lvc:PieChart.DataTooltip>
+            </lvc:PieChart>
             
             <!--Expenses Button-->
             <Button Grid.Row="2" Grid.Column="0"
                     Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                     Command="{Binding OpenExpenseDialogCommand}"
-                    Width="60"
-                    Height="60"
+                    Width="80"
+                    Height="80"
                     Background="Red"
                     Foreground="White"
                     BorderBrush="{x:Null}"
@@ -185,8 +213,8 @@
             <Button Grid.Row="2" Grid.Column="1"
                     Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                     Command="{Binding OpenIncomeDialogCommand}"
-                    Width="60"
-                    Height="60"
+                    Width="80"
+                    Height="80"
                     Background="#43B062"
                     Foreground="White"
                     BorderBrush="{x:Null}"
@@ -199,7 +227,7 @@
                                  HorizontalAlignment="Center"
                                  Background="#43B062"
                                  Foreground="White"
-                                 Padding="6">
+                                 Padding="8">
                 <TextBlock FontSize="22"
                            FontWeight="Regular">
                     <Run Text="Balance $" />

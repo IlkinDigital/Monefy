@@ -26,10 +26,10 @@ namespace Monefy.Services
             if (Data == null)
             {
                 CategoryModel[] defaultCategories = new CategoryModel[]{ 
-                    new() { Name="Food" },
-                    new() { Name="Commuting" },
-                    new() { Name="House" },
-                    new() { Name="Entertainment" }
+                    new() { Name="Food", IconPath="FoodForkDrink" },
+                    new() { Name="Commuting", IconPath="TrainCarPassenger" },
+                    new() { Name="House", IconPath="Home" },
+                    new() { Name="Entertainment", IconPath="GamepadSquare" }
                 };
 
                 Data = new() { Balance = 0.0f, Categories = defaultCategories };
@@ -38,21 +38,21 @@ namespace Monefy.Services
 
         public void YieldBalance(float amount)
         {
-            Data.Balance += amount;
+            Data.Balance = (float)Math.Round((Decimal)(Data.Balance + amount), 2, MidpointRounding.AwayFromZero);
             Update(Data);
         }
 
-        public void RecordPurchase(PurchaseRecord<float> purchaseRecord)
+        public void RecordPurchase(PurchaseRecord purchaseRecord)
         {
             if (Data.PurchaseHistory != null)
             {
-                List<PurchaseRecord<float>> purchaseRecords = new(Data.PurchaseHistory);
-                purchaseRecords.Add(purchaseRecord);
+                List<PurchaseRecord> purchaseRecords = new(Data.PurchaseHistory);
+                purchaseRecords.Insert(0, purchaseRecord);
                 Data.PurchaseHistory = purchaseRecords.ToArray();
             }
             else
             {
-                Data.PurchaseHistory = new PurchaseRecord<float>[] { purchaseRecord };
+                Data.PurchaseHistory = new PurchaseRecord[] { purchaseRecord };
             }
 
             Update(Data);

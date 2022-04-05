@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Monefy.Model
 {
-    public class PurchaseRecord<Ty>
+    public enum ECategoryType { Income, Expense }
+
+    public class PurchaseRecord
     { 
         public CategoryModel? Category { get; set; }
-        public Ty Value { get; set; }
+        public ECategoryType CategoryType { get; set; }
+        public float Value { get; set; }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using MaterialDesignThemes.Wpf;
 using Monefy.Messages;
 using Monefy.Model;
@@ -18,18 +21,25 @@ namespace Monefy.ViewModel
     {
         private readonly IMessenger Messenger;
         private readonly IUserDataService UserDataService;
+        private readonly IExpensesStatsService ExpensesStatsService;
 
-        public GeneralViewModel(IMessenger messenger, IUserDataService userDataService)
+        public GeneralViewModel(IMessenger messenger, IUserDataService userDataService, IExpensesStatsService expensesStatsService)
         {
             Messenger = messenger;
             UserDataService = userDataService;
+            ExpensesStatsService = expensesStatsService;
 
-            Messenger.Register<UpdateUserDataMessage>(this, message =>
-            {
-                Balance = UserDataService.Data.Balance;
-            });
+            Update();
 
-            Balance = UserDataService.Data.Balance;
+            Messenger.Register<UpdateUserDataMessage>(this, message => Update());
+            Messenger.Register<NavigationMessage>(this, message => Update());
+        }
+
+        private SeriesCollection _expensesStatsCollection;
+        public SeriesCollection ExpensesStatsCollection
+        {
+            get => _expensesStatsCollection;
+            set => Set(ref _expensesStatsCollection, value);
         }
 
         private float _balance;
@@ -55,6 +65,12 @@ namespace Monefy.ViewModel
             {
                 await DialogHost.Show(new AddExpenseMenu(Messenger, UserDataService), "RootDialog");
             });
+        }
+
+        private void Update()
+        {
+            Balance = UserDataService.Data.Balance;
+            ExpensesStatsCollection = ExpensesStatsService.ComputePieChartData(UserDataService.Data);
         }
     }
 }

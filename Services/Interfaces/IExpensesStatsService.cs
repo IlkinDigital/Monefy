@@ -1,4 +1,5 @@
-﻿using Monefy.Model;
+﻿using LiveCharts;
+using Monefy.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Monefy.Services
 {
     public interface IExpensesStatsService
     {
-        PurchaseRecord<int>[] CalculatePercentageFromTotal(PurchaseRecord<float>[] purchaseExpenses);
+        SeriesCollection ComputePieChartData(UserData userData);
     }
 }

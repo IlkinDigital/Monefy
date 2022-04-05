@@ -4,53 +4,56 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monefy.View"
+             xmlns:model="clr-namespace:Monefy.Model"
              xmlns:viewmodel="clr-namespace:Monefy.ViewModel" 
              d:DataContext="{d:DesignInstance Type=viewmodel:HistoryViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="500">
     <UserControl.Resources>
         <ResourceDictionary>
-            <Style x:Key="TextBlockStyle" TargetType="TextBlock">
-                <Setter Property="FontSize" Value="15" />
-                <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="Foreground" Value="#43B062" />
-                <Setter Property="Background" Value="{x:Null}" />
-            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="15" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                        <Setter Property="Foreground" Value="#43B062" />
+                        <Setter Property="Background" Value="{x:Null}" />
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Grid>
         <ListBox ItemsSource="{Binding PurchaseRecords}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
-                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0">
+                        <TextBlock Grid.Column="0"
+                                   Style="{StaticResource TextBlockStyle}"
+                                   HorizontalAlignment="Center"
+                                   Foreground="Black"
+                                   Text="{Binding Category.Name}"/>
+                        <TextBlock Grid.Column="1"
+                                   HorizontalAlignment="Center"
+                                   FontSize="15"
+                                   FontWeight="SemiBold">
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="FontSize" Value="15" />
-                                    <Setter Property="FontWeight" Value="SemiBold" />
-                                    <Setter Property="Foreground" Value="#43B062" />
-                                    <Setter Property="Background" Value="{x:Null}" />
-
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Category}" Value="null">
-                                            <Setter Property="Text" Value="+" />
+                                        <DataTrigger Binding="{Binding CategoryType}" Value="Income">
                                             <Setter Property="Foreground" Value="#43B062" />
+                                        </DataTrigger>                     
+                                        <DataTrigger Binding="{Binding CategoryType}" Value="Expense">
+                                            <Setter Property="Foreground" Value="Red" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
-                        </TextBlock>
-                        <TextBlock Grid.Column="1"
-                                   Style="{StaticResource TextBlockStyle}"
-                                   Text="{Binding Category.Name}"/>
-                        <TextBlock Grid.Column="2"
-                                   Style="{StaticResource TextBlockStyle}">
                             <Run Text="{Binding Value}"/>
                             <Run Text="$"/>
                         </TextBlock>

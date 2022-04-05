@@ -30,8 +30,9 @@ namespace Monefy.ViewModel.Components
         {
             get => _addIncomeCommand ??= new RelayCommand(() =>
             {
+                Amount = (float)Math.Round((Decimal)Amount, 2, MidpointRounding.AwayFromZero);
                 UserDataService.YieldBalance(Amount);
-                UserDataService.RecordPurchase(new() { Category = null, Value = Amount });
+                UserDataService.RecordPurchase(new() { Category = new() { Name = "Income" }, CategoryType = ECategoryType.Income, Value = Amount });
                 DialogHost.Close("RootDialog");
 
                 Messenger.Send<UpdateUserDataMessage>(new());

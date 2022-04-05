@@ -9,7 +9,7 @@ namespace Monefy.Model
     public class UserData
     {
         public float Balance { get; set; }
-        public PurchaseRecord<float>[]? PurchaseHistory { get; set; }
+        public PurchaseRecord[]? PurchaseHistory { get; set; }
         public CategoryModel[]? Categories { get; set; }
     }
 }
