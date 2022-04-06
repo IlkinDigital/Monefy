@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monefy.View"
              xmlns:model="clr-namespace:Monefy.Model"
-             xmlns:viewmodel="clr-namespace:Monefy.ViewModel" 
+             xmlns:viewmodel="clr-namespace:Monefy.ViewModel" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DataContext="{d:DesignInstance Type=viewmodel:HistoryViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="500">
@@ -25,23 +25,30 @@
     </UserControl.Resources>
 
     <Grid>
-        <ListBox ItemsSource="{Binding PurchaseRecords}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--OLD-->
+        <!--<ListBox ItemsSource="{d:SampleData}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="10">
+                    <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                                    Style="{StaticResource TextBlockStyle}"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Foreground="Black"
                                    Text="{Binding Category.Name}"/>
                         <TextBlock Grid.Column="1"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    FontSize="15"
-                                   FontWeight="SemiBold">
+                                   FontWeight="SemiBold"
+                                   Margin="10, 0, 0, 0">
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Style.Triggers>
@@ -60,6 +67,53 @@
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+        </ListBox>-->
+
+        <ListView ItemsSource="{Binding PurchaseRecords}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Category.Name}"
+                                    Header="Category">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="{Binding Category.IconPath}"/>
+
+                                    <TextBlock Grid.Column="0"
+                                           Style="{StaticResource TextBlockStyle}"
+                                           HorizontalAlignment="Left"
+                                           Foreground="Black"
+                                           Text="{Binding Category.Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Cost">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                   FontSize="15"
+                                   FontWeight="SemiBold">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding CategoryType}" Value="Income">
+                                                    <Setter Property="Foreground" Value="#43B062" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding CategoryType}" Value="Expense">
+                                                    <Setter Property="Foreground" Value="Red" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                            <Run Text="{Binding Value}"/>
+                            <Run Text="$"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>
