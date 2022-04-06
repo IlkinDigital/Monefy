@@ -38,7 +38,7 @@ namespace Monefy.Services
 
         public void YieldBalance(float amount)
         {
-            Data.Balance = (float)Math.Round((Decimal)(Data.Balance + amount), 2, MidpointRounding.AwayFromZero);
+            Data.Balance = Money.RoundToCent(Data.Balance + amount);
             Update(Data);
         }
 
